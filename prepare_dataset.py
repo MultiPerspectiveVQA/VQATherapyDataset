@@ -73,7 +73,7 @@ def prepare_vqav2_dataset(annotations, src_folder, target_folder, vqa_therapy, f
     return vqa_therapy
 
 def prepare_vizwiz_dataset(annotations, src_folder, target_folder, vqa_therapy):
-    print(f'Preparing dataset for vqav2')
+    print(f'Preparing dataset for vizwiz')
     for annotation in annotations:
         image_id = annotation["image_id"]
         image_filename = image_id
@@ -99,7 +99,7 @@ def main(
         return
     
     zipfiles = list()
-    for url in dataset["url"]:
+    for url in dataset["urls"]:
         zipfiles.append(download_dataset(url, redownload))
 
     folders = list()
@@ -120,7 +120,7 @@ def main(
     vqa_therapy = prepare_vqav2_dataset(annotation_data[0], folders[0], dataset["save_dir"], vqa_therapy, dataset["vqav2_file_root"])
     vqa_therapy = prepare_vizwiz_dataset(annotation_data[1], folders[1], dataset["save_dir"], vqa_therapy)
 
-    write_metadata(vqa_therapy)
+    write_metadata(vqa_therapy, dataset["save_dir"])
 
 
 if __name__ == "__main__":
